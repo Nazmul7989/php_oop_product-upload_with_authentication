@@ -59,8 +59,40 @@ class Product{
         }
     }
 
-    public function updateProduct()
+    public function updateProduct($id,$image)
     {
+        $name = $_POST['name'];
+        $description = $_POST['description'];
+
+        $unique = date('Y-M-D-H-i-s')."_";
+        $file = $_FILES['image']['name'];
+        $imageName = $unique.$file;
+        $tempName = $_FILES['image']['tmp_name'];
+
+        if ($tempName) {
+
+            $imagePath = "../../asset/images/".$image;
+
+            unlink($imagePath);
+
+            move_uploaded_file($tempName,"../../asset/images/".$imageName);
+
+        }else{
+            $imageName = $image;
+        }
+
+        $updateSQL = "UPDATE `products` SET `name`='$name',`description`='$description',`image`='$imageName' WHERE `id`='$id'";
+
+        $connection = new Connection();
+        $runUpdateSQL = $connection->runSqlQuery($updateSQL);
+
+        if ($runUpdateSQL == true) {
+
+            header('location:../../main.php?message= Product updated successfully.');
+        }else{
+
+            header('location:edit.php?message= Opps! Product update failed.');
+        }
 
     }
 

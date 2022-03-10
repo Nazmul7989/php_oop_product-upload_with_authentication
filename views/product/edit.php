@@ -6,10 +6,19 @@ $product = new Product();
 
 //select single product
 $id = $_GET['id'];
+$image = $_GET['image'];
 
 $selectSingleProduct = $product->editProduct($id);
 $data = mysqli_fetch_assoc($selectSingleProduct);
 
+
+//update product
+if (isset($_POST['update'])) {
+
+    $product = new Product();
+    $product->updateProduct($id,$image);
+
+}
 
 ?>
 
@@ -75,7 +84,7 @@ $data = mysqli_fetch_assoc($selectSingleProduct);
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <input name="submit" value="Update" type="submit" class="btn btn-success btn-sm">
+                                <input name="update" value="Update" type="submit" class="btn btn-success btn-sm">
                             </div>
                         </div>
                     </div>
