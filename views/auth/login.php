@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 include '../../controller/Login.php';
 
 //showing message

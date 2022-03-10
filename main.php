@@ -59,7 +59,7 @@ if (isset($_GET['id'])) {
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <div class="clearfix mt-5">
+            <div class="clearfix my-4">
                 <h3 class="text-center float-left">All Products</h3>
                 <a href="views/product/add.php" class="float-right btn btn-success btn-sm ml-2">Add New</a>
                 <a href="views/auth/logout.php" class="float-right btn btn-danger btn-sm">Logout</a>
@@ -78,7 +78,7 @@ if (isset($_GET['id'])) {
         </div>
     </div>
 
-    <div class="row">
+    <div class="row mb-5">
         <?php while ($product = mysqli_fetch_assoc($selectProduct)){?>
             <div class="col-lg-3 col-md-6 col-sm-12">
                 <div class="card shadow mt-4">
