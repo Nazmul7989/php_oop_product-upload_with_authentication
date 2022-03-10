@@ -14,12 +14,16 @@ $product = new Product();
 $selectProduct = $product->index();
 
 //delete product
+if (isset($_GET['id'])) {
 
-$id = $_GET['id'];
-$image = $_GET['image'];
+    $id = $_GET['id'];
+    $image = $_GET['image'];
 
-$product = new Product();
-$product->deleteProduct($id,$image);
+    $product = new Product();
+    $product->deleteProduct($id,$image);
+
+}
+
 
 
 
@@ -70,14 +74,14 @@ $product->deleteProduct($id,$image);
     <div class="row">
         <?php while ($product = mysqli_fetch_assoc($selectProduct)){?>
             <div class="col-lg-3 col-md-6 col-sm-12">
-                <div class="card shadow">
+                <div class="card shadow mt-4">
                     <img src="asset/images/<?php echo $product['image']?>" class="card-img-top" alt="">
                     <div class="card-body">
                         <h4 class="card-title"><?php echo $product['name']?></h4>
                         <p class="card-text"><?php echo $product['description']?></p>
                         <a href="" class="card-link btn btn-success btn-sm">Details</a>
                         <a href="views/product/edit.php?id=<?php echo $product['id']?>&image=<?php echo $product['image']?>" class="card-link btn btn-info btn-sm">Edit</a>
-                        <a href="main.php?id=<?php echo $product['id']?>&image=<?php echo $product['image']?>" class="card-link btn btn-danger btn-sm">Delete</a>
+                        <a href="main.php?id=<?php echo $product['id']?>&image=<?php echo $product['image']?>" onclick="return confirm('Do you want to delete?')" class="card-link btn btn-danger btn-sm">Delete</a>
                     </div>
                 </div>
             </div>
