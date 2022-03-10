@@ -13,6 +13,17 @@ $product = new Product();
 //select all product
 $selectProduct = $product->index();
 
+//delete product
+
+$id = $_GET['id'];
+$image = $_GET['image'];
+
+$product = new Product();
+$product->deleteProduct($id,$image);
+
+
+
+
 
 ?>
 

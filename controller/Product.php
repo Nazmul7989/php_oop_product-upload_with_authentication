@@ -73,7 +73,9 @@ class Product{
 
             $imagePath = "../../asset/images/".$image;
 
-            unlink($imagePath);
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
 
             move_uploaded_file($tempName,"../../asset/images/".$imageName);
 
@@ -96,9 +98,25 @@ class Product{
 
     }
 
-    public function deleteProduct()
+    public function deleteProduct($id,$image)
     {
+        $deleteSql = "DELETE FROM `products` WHERE `id`='$id'";
+        $connection = new Connection();
+        $runDeleteSQL = $connection->runSqlQuery($deleteSql);
 
+        if ($runDeleteSQL == true) {
+
+            $imagePath = "asset/images/".$image;
+
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+
+            header('location:main.php?message= Product deleted successfully.');
+        }else{
+
+            header('location:main.php?message= Opps! Product delete failed.');
+        }
     }
 
 
