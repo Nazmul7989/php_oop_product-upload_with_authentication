@@ -1,5 +1,22 @@
 <?php
 
+include '../../controller/Register.php';
+
+//showing message
+$message = '';
+
+if (isset($_GET['message'])) {
+    $message = $_GET['message'];
+}
+
+//register new user
+if (isset($_POST['register'])) {
+    $register = new Register();
+    $register->register();
+}
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -28,6 +45,15 @@
 
         <div class="col-md-6">
             <div class="card py-4 px-4 mt-5">
+
+                <?php if ($message != '') { ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong><?php echo $message ?></strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <?php }?>
                 <h3 class="text-center mb-3">Register Now</h3>
                 <form action="" method="post">
                     <div class="row">
@@ -55,7 +81,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <input name="signupBtn" value="Submit" class="btn btn-success btn-sm" type="submit">
+                                <input name="register" value="Submit" class="btn btn-success btn-sm" type="submit">
                             </div>
                         </div>
                     </div>

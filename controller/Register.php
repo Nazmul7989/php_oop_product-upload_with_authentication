@@ -1,4 +1,5 @@
 <?php
+include 'Connection.php';
 
 class Register{
 
@@ -14,9 +15,9 @@ class Register{
         $runInsertUserSql = $connection->runSqlQuery($insertUserSql);
 
         if ($runInsertUserSql == true) {
-            header('location:login.php?message:Account created successfully.');
+            header('location:login.php?message=Account created successfully.');
         }else{
-            header('location:register.php?message:Opp! Something went wrong.');
+            header('location:register.php?message=Opp! Something went wrong.');
         }
     }
 

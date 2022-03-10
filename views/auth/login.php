@@ -1,5 +1,34 @@
 <?php
 
+include '../../controller/Login.php';
+
+//showing message
+$message = '';
+
+if (isset($_GET['message'])) {
+    $message = $_GET['message'];
+}
+
+if (isset($_POST['login'])) {
+
+    $email = $_POST['email'];
+
+    $login  = new Login();
+    $result = $login->login();
+
+    $count = mysqli_num_rows($result);
+
+    if ($count > 0 ) {
+
+        $_SESSION['user_email'] = $email;
+        header('location:../../main.php?message=Welcome to Dashboard.');
+
+    }else{
+        header('location:login.php?message=Invalid email or password.');
+    }
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -28,6 +57,16 @@
 
         <div class="col-md-6">
             <div class="card py-4 px-4 mt-5">
+
+                <?php if ($message != '') { ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong><?php echo $message ?></strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <?php }?>
+
                 <h3 class="text-center mb-3">Login Now</h3>
                 <form action="" method="post">
                     <div class="row">
@@ -45,7 +84,7 @@
 
                         <div class="col-md-12">
                             <div class="form-group">
-                                <input name="signupBtn" value="Submit" class="btn btn-success btn-sm" type="submit">
+                                <input name="login" value="Submit" class="btn btn-success btn-sm" type="submit">
                             </div>
                         </div>
                     </div>

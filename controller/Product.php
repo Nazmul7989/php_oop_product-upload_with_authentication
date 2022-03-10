@@ -1,7 +1,6 @@
 <?php
 
 include 'Connection.php';
-$connection = new Connection();
 
 
 class Product{

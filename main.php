@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 include 'controller/Product.php';
 
 $message = '';
