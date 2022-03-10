@@ -1,5 +1,20 @@
 <?php
 
+include '../../controller/Product.php';
+
+$message = '';
+
+if (isset($_GET['message'])) {
+    $message = $_GET['message'];
+}
+
+if (isset($_POST['save'])) {
+
+    $product = new Product();
+    $product->storeProduct();
+
+}
+
 
 ?>
 
@@ -37,6 +52,14 @@
                         <a href="../../main.php" class="float-right btn btn-success btn-sm">Back</a>
                     </div>
                     <hr>
+                    <?php if ($message != '') { ?>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong><?php echo $message ?></strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    <?php }?>
 
                     <div class="row">
                         <div class="col-md-12">
@@ -55,12 +78,12 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="">Description</label>
-                                <input name="description" type="text" class="form-control">
+                                <textarea name="description" id="" cols="30" rows="4" class="form-control"></textarea>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <input name="submit" value="Save" type="submit" class="btn btn-success btn-sm">
+                                <input name="save" value="Save" type="submit" class="btn btn-success btn-sm">
                             </div>
                         </div>
                     </div>

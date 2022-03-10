@@ -1,5 +1,15 @@
 <?php
 
+include '../../controller/Product.php';
+
+$product = new Product();
+
+//select single product
+$id = $_GET['id'];
+
+$selectSingleProduct = $product->editProduct($id);
+$data = mysqli_fetch_assoc($selectSingleProduct);
+
 
 ?>
 
@@ -39,23 +49,28 @@
                     <hr>
 
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-9">
                             <div class="form-group">
                                 <label for="">Image</label>
-                                <input name="image" type="file" class="form-control">
+                                <input name="image" value="<?php echo $data['image']?>" type="file" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <img src="../../asset/images/<?php echo $data['image']?>" style="width: 100%;height: 80px;" alt="">
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="">Name</label>
-                                <input name="name" type="text" class="form-control">
+                                <input name="name" value="<?php echo $data['name']?>" type="text" class="form-control">
                             </div>
                         </div>
 
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="">Description</label>
-                                <input name="description" type="text" class="form-control">
+                                <textarea name="description" id="" cols="30" rows="4" class="form-control"><?php echo $data['description']?></textarea>
                             </div>
                         </div>
                         <div class="col-md-12">

@@ -1,7 +1,17 @@
 <?php
 
-include 'controller/Connection.php';
-$connection = new Connection()
+include 'controller/Product.php';
+
+$message = '';
+
+if (isset($_GET['message'])) {
+    $message = $_GET['message'];
+}
+
+$product = new Product();
+
+//select all product
+$selectProduct = $product->index();
 
 
 ?>
@@ -15,9 +25,6 @@ $connection = new Connection()
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>PHP OPP</title>
 
-    <!--============Font awesome css============-->
-    <!-- <link rel="stylesheet" href="asset/css/all.min.css"> -->
-    <!--   <link rel="stylesheet" href="asset/css/fontawesome.min.css">-->
     <!--==========Bootstrap CSS============-->
     <link rel="stylesheet" href="asset/css/bootstrap.min.css">
     <!--=========Toastr csss========  -->
@@ -37,58 +44,35 @@ $connection = new Connection()
             </div>
             <hr>
 
+            <?php if ($message != '') { ?>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong><?php echo $message ?></strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            <?php }?>
+
         </div>
     </div>
 
     <div class="row">
-        <div class="col-lg-3 col-md-6 col-sm-12">
-            <div class="card shadow">
-                <img src="asset/images/4-nature-photography-mountain-by-nitin-prabhudesai.jpg" class="card-img-top" alt="">
-                <div class="card-body">
-                    <h4 class="card-title">Product Title</h4>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-                    <a href="" class="card-link btn btn-success btn-sm">Details</a>
-                    <a href="" class="card-link btn btn-info btn-sm">Edit</a>
-                    <a href="" class="card-link btn btn-danger btn-sm">Delete</a>
+        <?php while ($product = mysqli_fetch_assoc($selectProduct)){?>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="card shadow">
+                    <img src="asset/images/<?php echo $product['image']?>" class="card-img-top" alt="">
+                    <div class="card-body">
+                        <h4 class="card-title"><?php echo $product['name']?></h4>
+                        <p class="card-text"><?php echo $product['description']?></p>
+                        <a href="" class="card-link btn btn-success btn-sm">Details</a>
+                        <a href="views/product/edit.php?id=<?php echo $product['id']?>&image=<?php echo $product['image']?>" class="card-link btn btn-info btn-sm">Edit</a>
+                        <a href="main.php?id=<?php echo $product['id']?>&image=<?php echo $product['image']?>" class="card-link btn btn-danger btn-sm">Delete</a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-12">
-            <div class="card shadow">
-                <img src="asset/images/4-nature-photography-mountain-by-nitin-prabhudesai.jpg" class="card-img-top" alt="">
-                <div class="card-body">
-                    <h4 class="card-title">Product Title</h4>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-                    <a href="" class="card-link btn btn-success btn-sm">Details</a>
-                    <a href="" class="card-link btn btn-info btn-sm">Edit</a>
-                    <a href="" class="card-link btn btn-danger btn-sm">Delete</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-12">
-            <div class="card shadow">
-                <img src="asset/images/4-nature-photography-mountain-by-nitin-prabhudesai.jpg" class="card-img-top" alt="">
-                <div class="card-body">
-                    <h4 class="card-title">Product Title</h4>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-                    <a href="" class="card-link btn btn-success btn-sm">Details</a>
-                    <a href="" class="card-link btn btn-info btn-sm">Edit</a>
-                    <a href="" class="card-link btn btn-danger btn-sm">Delete</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-12">
-            <div class="card shadow">
-                <img src="asset/images/4-nature-photography-mountain-by-nitin-prabhudesai.jpg" class="card-img-top" alt="">
-                <div class="card-body">
-                    <h4 class="card-title">Product Title</h4>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-                    <a href="" class="card-link btn btn-success btn-sm">Details</a>
-                    <a href="" class="card-link btn btn-info btn-sm">Edit</a>
-                    <a href="" class="card-link btn btn-danger btn-sm">Delete</a>
-                </div>
-            </div>
-        </div>
+
+        <?php }?>
+
     </div>
 </div>
 
@@ -97,9 +81,7 @@ $connection = new Connection()
 <script src="asset/js/jquery-3.5.1.min.js"></script>
 <script src="asset/js/popper.min.js"></script>
 <script src="asset/js/bootstrap.min.js"></script>
-<!--==========Font awesome js==================-->
-<!--    <script src="asset/js/all.min.js"></script>-->
-<!--    <script src="asset/js/fontawesome.min.js"></script>-->
+
 <!--==========Toastr js==================-->
 <!--    <script src="asset/js/toastr.min.js"></script>-->
 
