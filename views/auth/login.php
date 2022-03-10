@@ -11,7 +11,7 @@ if (isset($_GET['message'])) {
 
 if (isset($_POST['login'])) {
 
-    $email = $_POST['email'];
+    $email = trim($_POST['email']);
 
     $login  = new Login();
     $result = $login->login();
@@ -114,8 +114,6 @@ if (isset($_POST['login'])) {
 <!--==========Toastr js==================-->
 <!--    <script src="js/toastr.min.js"></script>-->
 
-
-<!--    <script src="js/swiper-bundle.min.js"></script>-->
 <!--=====Custom js======-->
 <script src="../../asset/js/custom.js"></script>
 

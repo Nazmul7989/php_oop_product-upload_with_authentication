@@ -1,6 +1,10 @@
 <?php
 
+//login session start here
 session_start();
+if (!$_SESSION['user_email']){
+    header('location:views/auth/login.php');
+}
 
 include 'controller/Product.php';
 
@@ -57,7 +61,8 @@ if (isset($_GET['id'])) {
         <div class="col-md-12">
             <div class="clearfix mt-5">
                 <h3 class="text-center float-left">All Products</h3>
-                <a href="views/product/add.php" class="float-right btn btn-success btn-sm">Add New</a>
+                <a href="views/product/add.php" class="float-right btn btn-success btn-sm ml-2">Add New</a>
+                <a href="views/auth/logout.php" class="float-right btn btn-danger btn-sm">Logout</a>
             </div>
             <hr>
 
@@ -81,8 +86,7 @@ if (isset($_GET['id'])) {
                     <div class="card-body">
                         <h4 class="card-title"><?php echo $product['name']?></h4>
                         <p class="card-text"><?php echo $product['description']?></p>
-                        <a href="" class="card-link btn btn-success btn-sm">Details</a>
-                        <a href="views/product/edit.php?id=<?php echo $product['id']?>&image=<?php echo $product['image']?>" class="card-link btn btn-info btn-sm">Edit</a>
+                        <a href="views/product/edit.php?id=<?php echo $product['id']?>&image=<?php echo $product['image']?>" class="card-link btn btn-success btn-sm">Edit</a>
                         <a href="main.php?id=<?php echo $product['id']?>&image=<?php echo $product['image']?>" onclick="return confirm('Do you want to delete?')" class="card-link btn btn-danger btn-sm">Delete</a>
                     </div>
                 </div>
